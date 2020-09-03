@@ -3,7 +3,17 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+import axios from 'axios'
 
+axios.get('https://api.github.com/users/justinmrks')
+  .then(info =>{
+    debugger
+    createCard(info.data)
+  })
+  .catch(err =>{
+    debugger
+    console.log('whelp that didnt work',err)
+  })
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +38,13 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'ElleTinajero',
+  'willwearing',
+  'TJJanus',
+  'bigknell',
+  'tetondan'
+];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,7 +65,63 @@ const followersArray = [];
       </div>
     </div>
 */
+const cards = document.querySelector('.cards')
 
+function createCard(info){
+
+  const cardDiv = document.createElement('div')
+  const userImg = document.createElement('img')
+  const infoDiv = document.createElement('div')
+  const name = document.createElement('h3')
+  const username = document.createElement('p')
+  const loc = document.createElement('p')
+  const profile = document.createElement('p')
+  const address = document.createElement('a')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
+
+  cards.appendChild(cardDiv)
+  cardDiv.appendChild(userImg)
+  cardDiv.appendChild(infoDiv)
+    infoDiv.appendChild(name)
+    infoDiv.appendChild(username)
+    infoDiv.appendChild(loc)
+    infoDiv.appendChild(profile)
+      profile.appendChild(address)
+    infoDiv.appendChild(followers)
+    infoDiv.appendChild(following)
+    infoDiv.appendChild(bio)
+
+  cardDiv.classList.add('card')
+  infoDiv.classList.add('card-info')
+  name.classList.add('name')
+  username.classList.add('username')
+
+  userImg.src = info.avatar_url
+  name.textContent = info.name
+  username.textContent = info.login
+  loc.textContent = info.location
+  address.textContent = info.html_url
+  address.href = info.html_url
+  followers.textContent = info.followers
+  following.textContent = info.following
+  bio.textContent = info.bio
+
+
+  console.log(cardDiv)
+}
+followersArray.forEach(item =>{
+  axios.get(`https://api.github.com/users/${item}`)
+  .then(info =>{
+    debugger
+    createCard(info.data)
+  })
+  .catch(err =>{
+    debugger
+    console.log('whelp that didnt work',err)
+  })
+})
 /*
   List of LS Instructors Github username's:
     tetondan
