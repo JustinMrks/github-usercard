@@ -42,8 +42,8 @@ const followersArray = [
   'ElleTinajero',
   'willwearing',
   'TJJanus',
-  'bigknell',
-  'tetondan'
+  'seanshadle',
+  'RNRTxScott'
 ];
 
 /*
